@@ -1,8 +1,9 @@
-const { app, BrowserWindow, Menu, shell, session } = require("electron");
+const { app, BrowserWindow, Menu, shell } = require("electron");
 
 const APP_URL = "https://candle-pattern-extractor.replit.app";
+const CHROME_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
 
-const CHROME_UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+app.userAgentFallback = CHROME_UA;
 
 let mainWindow;
 
@@ -62,11 +63,6 @@ function buildMenu() {
 }
 
 app.whenReady().then(() => {
-  session.defaultSession.webRequest.onBeforeSendHeaders((details, callback) => {
-    details.requestHeaders["User-Agent"] = CHROME_UA;
-    callback({ requestHeaders: details.requestHeaders });
-  });
-
   buildMenu();
   createWindow();
 
