@@ -1,10 +1,6 @@
 const { app, BrowserWindow, Menu, shell } = require("electron");
-const path = require("path");
 
-// ── URL del tuo Pattern Lab pubblicato su Replit ──────────────────────────
-// Sostituisci con l'URL che vedi nella barra del browser quando apri l'app pubblicata
 const APP_URL = "https://candle-pattern-extractor.replit.app";
-// ─────────────────────────────────────────────────────────────────────────
 
 let mainWindow;
 
@@ -19,7 +15,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-    },non trov
+    },
     show: false,
   });
 
@@ -29,7 +25,6 @@ function createWindow() {
     mainWindow.show();
   });
 
-  // Apri i link esterni nel browser di sistema
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url);
     return { action: "deny" };
@@ -57,8 +52,6 @@ function buildMenu() {
         { label: "Zoom avanti", role: "zoomIn" },
         { label: "Zoom indietro", role: "zoomOut" },
         { label: "Zoom originale", role: "resetZoom" },
-        { type: "separator" },
-        { label: "Strumenti sviluppatore", role: "toggleDevTools" },
       ],
     },
   ];
@@ -68,7 +61,6 @@ function buildMenu() {
 app.whenReady().then(() => {
   buildMenu();
   createWindow();
-
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
